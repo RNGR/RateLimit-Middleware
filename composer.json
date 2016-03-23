@@ -1,5 +1,5 @@
 {
-    "name": "rngr/middleware/ratelimit",
+    "name": "rngr/ratelimit-middleware",
     "type": "library",
     "description": "Simple Slim Rate Limit Middleware",
     "keywords": ["slim", "rate limit", "middleware", "rngr"],
