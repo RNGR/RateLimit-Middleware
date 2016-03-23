@@ -33,9 +33,8 @@ class RateLimit extends Middleware
             $request->getResourceUri()
         )) {
             if ($key = $this->app->config('rate.limit.key')) {
-
                 $data = $this->fetch($key);
-                if (false === $data) {
+                if (!$data) {
                     // First time or previous period expired,
                     // initialize and save a new entry
                     $remaining = $this->limit-1;
@@ -56,7 +55,7 @@ class RateLimit extends Middleware
 
                     $reset = (($data['created'] + $this->period) - time());
 
-                    if ($reset) {
+                    if ($reset > 0) {
                         $this->save(
                             $key,
                             array(
@@ -73,7 +72,7 @@ class RateLimit extends Middleware
                 // Set rating headers
                 $response->headers->set(
                     'X-Rate-Limit-Limit',
-                    $this->max
+                    $this->limit
                 );
 
                 $response->headers->set(
