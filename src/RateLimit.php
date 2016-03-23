@@ -120,10 +120,10 @@ class RateLimit extends Middleware
             $this->remaining -= 1;
         }
 
-        $data = array(
+        $data = [
             'remaining' => $this->remaining,
             'created' => time()
-        );
+        ];
 
         $this->save($key, $data, $this->reset);
 
@@ -140,10 +140,10 @@ class RateLimit extends Middleware
     {
         $this->remaining = (--$currentData['remaining'] > 0) ? $currentData['remaining'] : -1;
         $this->reset = (($currentData['created'] + $this->period) - time());
-        $data = array(
+        $data = [
             'remaining' => $this->remaining,
             'created' => $currentData['created']
-        );
+        ];
 
         if ($this->reset > 0) {
             $this->save($key, $data, $this->reset);
