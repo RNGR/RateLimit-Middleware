@@ -7,6 +7,8 @@ use Slim\Middleware;
 class RateLimit extends Middleware
 {
     /**
+     * Storage Adapter
+     *
      * @var StorageInterface
      */
     protected $storage;
@@ -26,7 +28,7 @@ class RateLimit extends Middleware
 
     private function setOptions(array $options)
     {
-        foreach($options as $option => $value) {
+        foreach ($options as $option => $value) {
             if (in_array($option, ['root', 'limit', 'period', 'successCallback', 'failCallback'])) {
                 $this->{$option} = $value;
             }
@@ -116,7 +118,7 @@ class RateLimit extends Middleware
         $this->reset = $this->period;
         $this->remaining = $this->limit;
 
-        if (!$nextCall) {
+        if ($nextCall == false) {
             $this->remaining -= 1;
         }
 
@@ -173,7 +175,7 @@ class RateLimit extends Middleware
     public function success()
     {
         if (is_callable($this->successCallback)) {
-            return call_user_func_array([$this, 'successCallback'], [$this->app]);
+            return call_user_func_array($this->successCallback, [$this->app]);
         }
     }
 
@@ -188,7 +190,7 @@ class RateLimit extends Middleware
     protected function fail()
     {
         if (is_callable($this->failCallback)) {
-            return call_user_func_array([$this, 'failCallback'], [$this->app]);
+            return call_user_func_array($this->failCallback, [$this->app]);
         }
 
         return $this->defaultFailCallback();

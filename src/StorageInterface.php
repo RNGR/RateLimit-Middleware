@@ -7,7 +7,7 @@ interface StorageInterface
     /**
      * Read an item by key.
      *
-     * @param  string  $key
+     * @param  string $key
      * @return mixed
      */
     public function read($key);
@@ -15,8 +15,8 @@ interface StorageInterface
     /**
      * Put a value in by key.
      *
-     * @param  string  $key
-     * @param  mixed   $value
+     * @param  string $key
+     * @param  mixed $value
      * @return void
      */
     public function put($key, $value);
@@ -24,7 +24,7 @@ interface StorageInterface
     /**
      * Remove an item by key.
      *
-     * @param  string  $key
+     * @param  string $key
      * @return bool
      */
     public function delete($key);
